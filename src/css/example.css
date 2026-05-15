@@ -1,0 +1,25 @@
+@font-face {
+  font-display: swap;
+  font-family: RobotoRegular;
+  font-style: normal;
+  src: url('../fonts/Roboto-Regular.woff2');
+}
+
+body.logo {
+  background-image: url('../images/go.svg');
+  background-position-x: 290px;
+  background-position-y: 25px;
+  background-repeat: no-repeat;
+  background-size: 300px;
+  font-family: RobotoRegular;
+  height: 100%;
+}
+
+a {
+  color: #007d9c;
+  text-decoration: none;
+}
+
+nav a[href] {
+  text-decoration: underline;
+}
