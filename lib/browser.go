@@ -32,6 +32,7 @@ type Browser struct {
 }
 
 type BrowserFuncVoid func(arg ...string)
+type BrowserFuncReturn func(arg ...string) string
 
 // NewBrowser creates a WebView instance.
 func NewBrowser(htmlMarkup string, settings BrowserSettings) *Browser {
@@ -76,6 +77,17 @@ func (browser *Browser) BindFuncVoid(funcName string, callback BrowserFuncVoid) 
 		browser.logEvent(funcName, strings.Join(arg, ", "))
 
 		callback(arg...)
+	}
+
+	browser.WebView.Bind(funcName, c)
+}
+
+// Bind JavaScript function to DOM Window (return string).
+func (browser *Browser) BindFuncReturn(funcName string, callback BrowserFuncReturn) {
+	c := func(arg ...string) string {
+		browser.logEvent(funcName, strings.Join(arg, ", "))
+
+		return callback(arg...)
 	}
 
 	browser.WebView.Bind(funcName, c)
