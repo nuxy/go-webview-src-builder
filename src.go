@@ -10,13 +10,13 @@
 package main
 
 import (
-	_ "embed"
+	"embed"
 
 	"github.com/nuxy/go-webview-src-builder/lib"
 )
 
-//go:embed src/index.html
-var htmlDoc []byte
+//go:embed all:src
+var content embed.FS
 
 // Makefile linker variables
 var Version string
@@ -28,11 +28,23 @@ var settings = lib.BrowserSettings{
 	Height: 590,
 	Width:  620,
 	Resize: true,
-	Debug: lib.StrToBool(DevTools),
+	Debug:  lib.StrToBool(DevTools),
 }
 
 // Let's get this party started.
 func main() {
-	browser := lib.NewBrowser(htmlDoc, settings)
+	htmlDoc, _ := content.ReadFile("src/index.html")
+	browser := lib.NewBrowser(string(htmlDoc), settings)
+
+	// Define browser WebView script bindings.
+	browser.BindFuncVoid("browser_Load", func(arg ...string) {
+		fileData, err := content.ReadFile("src/" + lib.StripSlash(arg[0]))
+
+		if err == nil {
+			browser.LoadHtml(string(fileData))
+		}
+	})
+
+	browser.LoadScript(lib.InitScript())
 	browser.Open()
 }

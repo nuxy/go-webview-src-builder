@@ -22,7 +22,7 @@ type BrowserSettings struct {
 	Height int
 	Width  int
 	Resize bool
-    Debug  bool
+	Debug  bool
 }
 
 type Browser struct {
@@ -30,6 +30,8 @@ type Browser struct {
 	document string
 	settings BrowserSettings
 }
+
+type BrowserFuncVoid func(arg ...string)
 
 // NewBrowser creates a WebView instance.
 func NewBrowser(htmlMarkup string, settings BrowserSettings) *Browser {
@@ -56,4 +58,36 @@ func (browser *Browser) init() {
 // Launch the WebView window.
 func (browser *Browser) Open() {
 	browser.WebView.Run()
+}
+
+// Load JavaScript during page initialization event.
+func (browser *Browser) LoadScript(js string) {
+	browser.WebView.Init(js)
+}
+
+// Load HTML document in the WebView window.
+func (browser *Browser) LoadHtml(doc string) {
+	browser.WebView.SetHtml(doc)
+}
+
+// Bind JavaScript function to DOM Window (no return, void).
+func (browser *Browser) BindFuncVoid(funcName string, callback BrowserFuncVoid) {
+	c := func(arg ...string) {
+		browser.logEvent(funcName, strings.Join(arg, ", "))
+
+		callback(arg...)
+	}
+
+	browser.WebView.Bind(funcName, c)
+}
+
+// Output event to standard logger.
+func (browser *Browser) logEvent(arg ...string) {
+	if browser.settings.Debug {
+		if len(arg) > 1 && len(arg[1]) > 1 {
+			log.Printf("Function '%s' called with '%s'", arg[0], arg[1])
+		} else {
+			log.Printf("Function '%s' called with no arguments", arg[0])
+		}
+	}
 }
