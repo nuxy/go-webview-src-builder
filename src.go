@@ -11,6 +11,7 @@ package main
 
 import (
 	"embed"
+	"path"
 
 	"github.com/nuxy/go-webview-src-builder/lib"
 )
@@ -37,6 +38,18 @@ func main() {
 	browser := lib.NewBrowser(string(htmlDoc), settings)
 
 	// Define browser WebView script bindings.
+	browser.BindFuncReturn("browser_Get", func(arg ...string) string {
+		fileData, err := content.ReadFile("src/" + lib.StripSlash(arg[0]))
+
+		if err == nil {
+			fileType := path.Ext(arg[0])
+
+			return lib.EncodeData(fileData, fileType)
+		}
+
+		return arg[0] // no changes
+	})
+
 	browser.BindFuncVoid("browser_Load", func(arg ...string) {
 		fileData, err := content.ReadFile("src/" + lib.StripSlash(arg[0]))
 

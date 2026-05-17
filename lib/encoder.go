@@ -15,7 +15,7 @@ import (
 	"net/http"
 )
 
-// Generate browser HTTP Data URL (HTTP data:)
+// Generate browser HTTP data: URL
 func EncodeData(v []byte, fileExt string) string {
 	var mimeType string = getMimeType(fileExt)
 

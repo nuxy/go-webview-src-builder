@@ -17,8 +17,23 @@ func InitScript() string {
  * Update page content using Go WebView bindings.
  */
 window.addEventListener('load', function() {
+  updateImages();
   updateLinks();
 });
+
+/**
+ * Replace HTML images with data: equivalent.
+ */
+async function updateImages() {
+  var nodes = document.querySelectorAll('img[src]');
+
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    var data = await window.browser_Get(node.getAttribute('src'));
+
+    node.setAttribute('src', data);
+  }
+}
 
 /**
  * Replace HTML anchor link locations.
