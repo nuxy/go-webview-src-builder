@@ -12,18 +12,30 @@ package lib
 // Returns WebView injection JavaScript.
 func InitScript() string {
 	return `
+
+/**
+ * Update page content using Go WebView bindings.
+ */
 window.addEventListener('load', function() {
-  var links = document.querySelectorAll('a[href]');
+  updateLinks();
+});
 
-  for (var i = 0; i < links.length; i++) {
-    var link = links[i];
+/**
+ * Replace HTML anchor link locations.
+ */
+function updateLinks() {
+  var nodes = document.querySelectorAll('a[href]');
 
-    link.addEventListener('click', function(event) {
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+
+    node.addEventListener('click', async function(event) {
       event.preventDefault();
-	
-      window.browser_Load(this.getAttribute('href'));
+
+      await window.browser_Load(this.getAttribute('href'));
     });
   }
-});
+}
+
 `
 }
