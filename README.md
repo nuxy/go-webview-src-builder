@@ -1,6 +1,8 @@
 # WebView Source Builder
 
-Create self-contained binary of [HTML](https://en.wikipedia.org/wiki/HTML) sources in a [WebView](https://en.wikipedia.org/wiki/WebView) :warning: Work In Progress :warning:
+Create self-contained binary of [HTML](https://en.wikipedia.org/wiki/HTML) sources in a [WebView](https://en.wikipedia.org/wiki/WebView)
+
+![Preview](https://raw.githubusercontent.com/nuxy/go-webview-src-builder/master/example.png)
 
 ## Dependencies
 
