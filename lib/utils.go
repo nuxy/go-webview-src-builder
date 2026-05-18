@@ -11,8 +11,8 @@ package lib
 
 import (
 	"log"
-	"strconv"
 	"regexp"
+	"strconv"
 )
 
 // Converts a valid string value to boolean.
@@ -26,8 +26,8 @@ func StrToBool(v string) bool {
 	return _v
 }
 
-// Removes / prefix from a string value.
-func StripSlash(v string) string {
-	re := regexp.MustCompile(`^\/`)
+// Removes .. and / prefix from a string value.
+func CleanPath(v string) string {
+	re := regexp.MustCompile(`^(\.\.|\/)+`)
 	return re.ReplaceAllString(v, "")
 }

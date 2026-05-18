@@ -64,5 +64,5 @@ func main() {
 
 // Get embedded content for a given path.
 func readFile(v string) ([]byte, error) {
-	return content.ReadFile("src/" + lib.StripSlash(v))
+	return content.ReadFile("src/" + lib.CleanPath(v))
 }
