@@ -12,6 +12,8 @@ package main
 import (
 	"embed"
 	"path"
+	"regexp"
+	"strings"
 
 	"github.com/nuxy/go-webview-src-builder/lib"
 )
@@ -44,6 +46,10 @@ func main() {
 		if err == nil {
 			fileType := path.Ext(arg[0])
 
+			if fileType == ".css" {
+				fileData = []byte(parseUrlFunc(string(fileData)))
+			}
+
 			return lib.EncodeData(fileData, fileType)
 		}
 
@@ -65,4 +71,25 @@ func main() {
 // Get embedded content for a given path.
 func readFile(v string) ([]byte, error) {
 	return content.ReadFile("src/" + lib.CleanPath(v))
+}
+
+// Replace CSS url() with HTTP data:
+func parseUrlFunc(v string) []byte {
+	re := regexp.MustCompile(`url\(['"]?([^}]*)['"]\)`)
+	matches := re.FindAllStringSubmatch(v, -1)
+
+	for i := 0; i < len(matches); i++ {
+		filePath := matches[i][1]
+		fileData, err := readFile(filePath)
+
+		if err == nil {
+			fileType := path.Ext(filePath)
+
+			encodedData := lib.EncodeData(fileData, fileType)
+
+			v = strings.Replace(v, filePath, encodedData, 1)
+		}
+	}
+
+	return []byte(v)
 }

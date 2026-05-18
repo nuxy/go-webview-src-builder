@@ -12,6 +12,16 @@ The following dependencies are required in order to build for Debian-based opera
 
     $ apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev
 
+## Supported elements
+
+Currently the only HTML element not supported is inline `<style>` usage due to browser [Cross-origin resource sharing](https://www.w3.org/TR/2020/SPSD-cors-20200602) (CORS) restrictions.
+
+As an alternative you should include your stylesheets using:
+
+```txt
+<link rel="stylesheet" type="text/css" href="path/to/file.css" />
+```
+
 ## Quick and Easy
 
 Compile the Go application and run the example in one command:

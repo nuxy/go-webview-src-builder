@@ -17,9 +17,24 @@ func InitScript() string {
  * Update page content using Go WebView bindings.
  */
 window.addEventListener('load', function() {
+  updateCSS();
   updateImages();
   updateLinks();
 });
+
+/**
+ * Replace LINK stylesheets with data: equivalent.
+ */
+async function updateCSS() {
+  var nodes = document.querySelectorAll('link[href]');
+
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    var data = await window.browser_Get(node.getAttribute('href'));
+
+    node.setAttribute('href', data);
+  }
+}
 
 /**
  * Replace HTML images with data: equivalent.
