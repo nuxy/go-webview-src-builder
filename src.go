@@ -34,12 +34,12 @@ var settings = lib.BrowserSettings{
 
 // Let's get this party started.
 func main() {
-	htmlDoc, _ := content.ReadFile("src/index.html")
+	htmlDoc, _ := readFile("index.html")
 	browser := lib.NewBrowser(string(htmlDoc), settings)
 
 	// Define browser WebView script bindings.
 	browser.BindFuncReturn("browser_Get", func(arg ...string) string {
-		fileData, err := content.ReadFile("src/" + lib.StripSlash(arg[0]))
+		fileData, err := readFile(arg[0])
 
 		if err == nil {
 			fileType := path.Ext(arg[0])
@@ -51,7 +51,7 @@ func main() {
 	})
 
 	browser.BindFuncVoid("browser_Load", func(arg ...string) {
-		fileData, err := content.ReadFile("src/" + lib.StripSlash(arg[0]))
+		fileData, err := readFile(arg[0])
 
 		if err == nil {
 			browser.LoadHtml(string(fileData))
@@ -60,4 +60,9 @@ func main() {
 
 	browser.LoadScript(lib.InitScript())
 	browser.Open()
+}
+
+// Get embedded content for a given path.
+func readFile(v string) ([]byte, error) {
+	return content.ReadFile("src/" + lib.StripSlash(v))
 }
