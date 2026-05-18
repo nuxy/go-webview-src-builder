@@ -1,4 +1,4 @@
-# WebView Source Builder
+# WebView Source Builder [![](https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat)](https://goreportcard.com/report/github.com/nuxy/go-webview-src-builder) [![](https://img.shields.io/github/v/release/nuxy/go-webview-src-builder)](https://github.com/nuxy/go-webview-src-builder/releases)
 
 Create self-contained binary of [HTML](https://en.wikipedia.org/wiki/HTML) sources in a [WebView](https://en.wikipedia.org/wiki/WebView)
 
