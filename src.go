@@ -64,6 +64,10 @@ func main() {
 		}
 	})
 
+	browser.BindFuncVoid("browser_SetTitle", func(arg ...string) {
+		browser.SetTitle(arg[0])
+	})
+
 	browser.LoadScript(lib.InitScript())
 	browser.Open()
 }

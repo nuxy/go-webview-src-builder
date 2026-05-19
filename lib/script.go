@@ -16,10 +16,12 @@ func InitScript() string {
 /**
  * Update page content using Go WebView bindings.
  */
-window.addEventListener('load', function() {
-  updateCSS();
-  updateImages();
-  updateLinks();
+window.addEventListener('load', async function() {
+  await window.browser_SetTitle(window.document.title);
+
+  await updateCSS();
+  await updateImages();
+  await updateLinks();
 });
 
 /**
@@ -53,7 +55,7 @@ async function updateImages() {
 /**
  * Replace HTML anchor link locations.
  */
-function updateLinks() {
+async function updateLinks() {
   var nodes = document.querySelectorAll('a[href]');
 
   for (var i = 0; i < nodes.length; i++) {
