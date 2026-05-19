@@ -1,6 +1,6 @@
 # WebView Source Builder [![](https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat)](https://goreportcard.com/report/github.com/nuxy/go-webview-src-builder) [![](https://img.shields.io/github/v/release/nuxy/go-webview-src-builder)](https://github.com/nuxy/go-webview-src-builder/releases) [![NO AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/nuxy/no-ai-badge)
 
-Create self-contained binary of [HTML](https://en.wikipedia.org/wiki/HTML) sources in a [WebView](https://en.wikipedia.org/wiki/WebView)
+Create self-contained binary of [HTML sources](#supported-elements) in a [WebView](https://en.wikipedia.org/wiki/WebView)
 
 ![Preview](https://raw.githubusercontent.com/nuxy/go-webview-src-builder/master/example.png)
 
@@ -13,6 +13,10 @@ Create self-contained binary of [HTML](https://en.wikipedia.org/wiki/HTML) sourc
 The following dependencies are required in order to build for Debian-based operating systems.  For alternate OS's (e.g. BSD, Windows) refer to the [webview preqequisites](https://github.com/webview/webview?tab=readme-ov-file#prerequisites) install instructions.
 
     $ apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev
+
+## Single-page application support
+
+This [does NOT work](https://github.com/nuxy/go-webview-app-builder#the-problem) with SPA (Single-page applications) due to [CORS restrictions](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#examples_of_access_control_scenarios).  To work around this limitation see [WebView App Builder](https://github.com/nuxy/go-webview-app-builder)
 
 ## Supported elements
 
