@@ -18,16 +18,6 @@ The following dependencies are required in order to build for Debian-based opera
 
 This [does NOT work](https://github.com/nuxy/go-webview-app-builder#the-problem) with SPA (Single-page applications) due to [CORS restrictions](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS#examples_of_access_control_scenarios).  To work around this limitation see [WebView App Builder](https://github.com/nuxy/go-webview-app-builder)
 
-## Supported elements
-
-Currently the only HTML element not supported is inline `<style>` usage due to browser [Cross-origin resource sharing](https://www.w3.org/TR/2020/SPSD-cors-20200602) (CORS) restrictions.
-
-As an alternative you should include your stylesheets using:
-
-```txt
-<link rel="stylesheet" type="text/css" href="path/to/file.css" />
-```
-
 ## Quick and Easy
 
 Compile the Go application and run the example in one command:
@@ -58,6 +48,16 @@ Note: Using `--debug` will enable WebView browser [Developer Tools](https://deve
 lib    // Go package dependencies.
 src    // HTML markup and related sources.
 src.go // main
+```
+
+## Supported elements
+
+Currently the only HTML element not supported is inline `<style>` usage due to browser [Cross-origin resource sharing](https://www.w3.org/TR/2020/SPSD-cors-20200602) (CORS) restrictions.
+
+As an alternative you should include your stylesheets using:
+
+```txt
+<link rel="stylesheet" type="text/css" href="path/to/file.css" />
 ```
 
 ## Closing the WebView
