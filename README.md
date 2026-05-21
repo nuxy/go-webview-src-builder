@@ -60,6 +60,16 @@ src    // HTML markup and related sources.
 src.go // main
 ```
 
+## Closing the WebView
+
+Outside of the **UI close button**, you can trigger the WebView termination event by adding `id="webview-close"` to an anchor link.
+
+### Example
+
+```txt
+<a id="webview-close">Exit</a>
+```
+
 ## References
 
 - [webview_go](https://github.com/webview/webview_go) - Go language binding for the webview library.

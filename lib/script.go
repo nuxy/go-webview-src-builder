@@ -56,7 +56,7 @@ async function updateImages() {
  * Replace HTML anchor link locations.
  */
 async function updateLinks() {
-  var nodes = document.querySelectorAll('a[href]');
+  var nodes = document.querySelectorAll('a');
 
   for (var i = 0; i < nodes.length; i++) {
     var node = nodes[i];
@@ -64,7 +64,9 @@ async function updateLinks() {
     node.addEventListener('click', async function(event) {
       event.preventDefault();
 
-      await window.browser_Load(this.getAttribute('href'));
+      await (this.id !== 'webview-close')
+        ? window.browser_Load(this.getAttribute('href'))
+        : window.browser_Terminate()
     });
   }
 }

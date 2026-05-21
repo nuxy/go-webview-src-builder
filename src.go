@@ -38,6 +38,7 @@ var settings = lib.BrowserSettings{
 func main() {
 	htmlDoc, _ := readFile("index.html")
 	browser := lib.NewBrowser(string(htmlDoc), settings)
+	browser.LoadScript(lib.InitScript())
 
 	// Define browser WebView script bindings.
 	browser.BindFuncReturn("browser_Get", func(arg ...string) string {
@@ -68,7 +69,10 @@ func main() {
 		browser.SetTitle(arg[0])
 	})
 
-	browser.LoadScript(lib.InitScript())
+	browser.BindFuncVoid("browser_Terminate", func(_ ...string) {
+		browser.Close()
+	})
+
 	browser.Open()
 }
 

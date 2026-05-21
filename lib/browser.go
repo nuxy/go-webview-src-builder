@@ -61,6 +61,11 @@ func (browser *Browser) Open() {
 	browser.WebView.Run()
 }
 
+// Close the WebView window.
+func (browser *Browser) Close() {
+	browser.WebView.Terminate()
+}
+
 // Load JavaScript during page initialization event.
 func (browser *Browser) LoadScript(js string) {
 	browser.WebView.Init(js)

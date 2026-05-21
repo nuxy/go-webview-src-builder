@@ -23,3 +23,8 @@ a {
 nav a[href] {
   text-decoration: underline;
 }
+
+#webview-close {
+  color: #ff0000;
+  cursor: pointer;
+}
