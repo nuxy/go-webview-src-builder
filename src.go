@@ -83,7 +83,7 @@ func readFile(v string) ([]byte, error) {
 
 // Replace CSS url() with HTTP data:
 func parseUrlFunc(v string) []byte {
-	re := regexp.MustCompile(`url\(['"]?([^}]*)['"]\)`)
+	re := regexp.MustCompile(`url\(['"]?([^}]*)['"]?\)`)
 	matches := re.FindAllStringSubmatch(v, -1)
 
 	for i := 0; i < len(matches); i++ {
